@@ -14,31 +14,40 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 
 <!-- kakao map -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b19782161c7ce90da40671e961e586a"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b19782161c7ce90da40671e961e586a&libraries=drawing"></script>
 
-<!-- css / js -->
+<!-- css -->
 <link rel="stylesheet" type="text/css" href="/resource/css/main.css">
-<script src="/resource/js/datepicker.js"></script>
 </head>
 <body>
 <article>
-	<section id="search-wrap">
-	  <form action="/history/list" method="POST" id="search-form">
-	  		<select name="hashtag">
-            	<option value="0">전체 선택</option>
-            	<option value="1">매우 쉬움</option>
-            	<option value="2">쉬움</option>
-            	<option value="3">보통</option>
-            	<option value="4">어려움</option>
-            	<option value="5">매우 어려움</option>
-            </select>	
+	<section id="tools-section">
+	  <div id="tools-wrap">	
+	  	<form action="/history/list" method="POST" id="filter-tools">
+  		  <div id="filter-select">
+  		  	<select name="difficulty">
+	          	<option value="0">전체 선택</option>
+	          	<option value="1">매우 쉬움</option>
+	          	<option value="2">쉬움</option>
+	          	<option value="3">보통</option>
+	          	<option value="4">어려움</option>
+	          	<option value="5">매우 어려움</option>
+         	</select>
+  		  </div>
+  		  <div id="filter-date">
 	  	    <input id="datepicker" name="pDate" placeholder="yyyy-mm-dd"/>
-	  	    <button type="submit" class="search-btn">검색</button>
-	  </form>  
+  		  </div>
+  	      <button type="submit" class="search-btn">검색</button>
+	  	</form>
+	  	<div id="drawing-tools">
+		    <button onclick="selectOverlay('RECTANGLE')">사각형</button>
+		    <button onclick="selectOverlay('POLYGON')">다각형</button>
+	  	</div>
+	  </div>
 	</section>
 	
 	<section id="map-wrap">
-		<div id="map" style="width:100%;height:350px;"></div>
+		<div id="map"></div>
 	</section>
 </article>
 
@@ -52,15 +61,25 @@ $(document).ready(function () {
 	$('#datepicker').datepicker();
 });
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+// 지도를 표시할 영역 선택
+const mapContainer = document.getElementById('map'),  
 mapOption = { 
     center: new kakao.maps.LatLng(36.349078175747444, 127.38508945191273), // 지도의 디폴트 중심좌표
     level: 6 // 지도의 디폴트 확대 레벨
 };
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+// 지도 생성
+const map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 지도 줌 컨트롤 생성
+const zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 </script>
 
+<!-- 날짜 선택 캘린더 생성 js -->
+<script src="/resource/js/datepicker.js"></script>
+<!-- 사각형, 다각형 그리기 js -->
+<script src="/resource/js/maps-drawing.js?map=${map}"></script>
 </body>
 </html>
