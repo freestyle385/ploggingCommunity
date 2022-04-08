@@ -40,8 +40,7 @@
   	      <button type="submit" class="search-btn">검색</button>
 	  	</form>
 	  	<div id="drawing-tools">
-		    <button onclick="selectOverlay('RECTANGLE')">사각형</button>
-		    <button onclick="selectOverlay('POLYGON')">다각형</button>
+		    <button onclick="selectOverlay('POLYGON')">영역 추가</button>
 	  	</div>
 	  </div>
 	</section>
@@ -75,11 +74,18 @@ const map = new kakao.maps.Map(mapContainer, mapOption);
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+// Drawing Manager 생성
+let manager;
+// Drawing Manager로 새로 그린 도형의 좌표를 담을 배열
+let newPolygonPath = [];
+
 </script>
 
 <!-- 날짜 선택 캘린더 생성 js -->
 <script src="/resource/js/datepicker.js"></script>
 <!-- 사각형, 다각형 그리기 js -->
-<script src="/resource/js/maps-drawing.js?map=${map}"></script>
+<script src="/resource/js/maps-drawing.js?map=${map}&manager=${manager}&newPolygonPath=${newPolygonPath}"></script>
+<!-- 오버레이 생성 js -->
+<script src="/resource/js/maps-overlay.js?map=${map}&manager=${manager}"></script>
 </body>
 </html>

@@ -62,14 +62,8 @@ article{
 	color: #ffffff;
 	margin: 0.25rem 1rem;
 }
-#drawing-tools{
-	width: 17.5%;
-	max-width: 15rem;
-	display: flex;
-	justify-content: space-between;
-}
 #drawing-tools button{
-	width: 5rem;
+	width: 7.5rem;
 	height: 2rem;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -79,7 +73,7 @@ article{
 	font-family: inherit;
 	cursor: pointer;
 	background-color: #4ad988;
-	box-shadow: 1px 1px 3px #4ad988;
+	box-shadow: 1px 1px 3px #a6a6a6;
 	text-align: center;
 	line-height: 2rem;
 	color: #ffffff;
